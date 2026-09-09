@@ -177,6 +177,8 @@
     .tag.place { background: #e6f1ee; color: var(--teal); }
     .map-focus { margin-left: auto; border: 0; padding: 3px 0; background: transparent; color: var(--coral); font-size: 11px; font-weight: 800; }
     .map-focus:hover, .map-focus:focus-visible { text-decoration: underline; }
+    .amap-link { display: inline-flex; align-items: center; min-height: 25px; border: 1px solid #b8d9ca; border-radius: 999px; padding: 3px 10px; background: #eef8f3; color: #19744e; font-size: 11px; font-weight: 800; text-decoration: none; }
+    .amap-link:hover, .amap-link:focus-visible { border-color: #19744e; background: #e2f3eb; }
 
     .map-panel { position: sticky; top: 18px; overflow: hidden; }
     .map-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; padding: 27px 28px 18px; }
@@ -252,7 +254,7 @@
       .site-shell { width: 100%; padding: 0; }
       .hero, .panel, .bottom-grid > * { box-shadow: none; }
       .hero { min-height: 0; border-radius: 0; }
-      .toolbar-actions, .day-tabs, .map-focus, .toast { display: none !important; }
+      .toolbar-actions, .day-tabs, .map-focus, .amap-link, .toast { display: none !important; }
       .content-grid, .bottom-grid { display: block; }
       .itinerary-panel { margin-bottom: 18px; }
       .map-panel { position: static; }
@@ -340,6 +342,7 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="./amap-links.js"></script>
   <script>
     const itinerary = [
       {
@@ -485,21 +488,26 @@
       $("#route-key").textContent = day.label;
       $("#route-key").style.setProperty("--route-color", day.color);
       document.documentElement.style.setProperty("--coral", day.color);
-      $("#timeline").innerHTML = day.items.map((item) => `
-        <article class="timeline-item" data-kind="${item.kind}" data-stop-id="${item.stop}">
-          <time class="time">${item.time}</time>
-          <span class="timeline-dot" aria-hidden="true"></span>
-          <div class="stop-card">
-            <div class="stop-top"><h3 class="stop-title">${item.title}</h3><span class="duration">${item.duration}</span></div>
-            <p class="stop-detail">${item.detail}</p>
-            <div class="stop-meta">
-              ${item.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
-              <span class="tag place">${item.place}</span>
-              <button class="map-focus" type="button" data-stop-id="${item.stop}">在地圖查看 ↗</button>
+      $("#timeline").innerHTML = day.items.map((item) => {
+        const point = day.route.find((routePoint) => routePoint.id === item.stop);
+        const amapUrl = window.AmapLinks?.buildAmapMarkerUrl(point) || "";
+        return `
+          <article class="timeline-item" data-kind="${item.kind}" data-stop-id="${item.stop}">
+            <time class="time">${item.time}</time>
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <div class="stop-card">
+              <div class="stop-top"><h3 class="stop-title">${item.title}</h3><span class="duration">${item.duration}</span></div>
+              <p class="stop-detail">${item.detail}</p>
+              <div class="stop-meta">
+                ${item.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
+                <span class="tag place">${item.place}</span>
+                <button class="map-focus" type="button" data-stop-id="${item.stop}">在地圖查看 ↗</button>
+                ${amapUrl ? `<a class="amap-link" href="${amapUrl}" target="_blank" rel="noopener noreferrer" aria-label="用高德地圖開啟 ${point.name}">高德地圖 ↗</a>` : ""}
+              </div>
             </div>
-          </div>
-        </article>
-      `).join("");
+          </article>
+        `;
+      }).join("");
       document.querySelectorAll(".map-focus").forEach((button) => {
         button.addEventListener("click", () => focusStop(button.dataset.stopId));
       });
