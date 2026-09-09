@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#15313b">
+  <meta name="description" content="深圳香港五日旅行行程與移動路線記錄">
+  <title>深圳 × 香港｜五日行程記錄</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <style>
+    :root {
+      --ink: #15313b;
+      --ink-soft: #3d5961;
+      --paper: #f8f4ee;
+      --paper-2: #fffdfa;
+      --line: #e5ddd2;
+      --muted: #7c8988;
+      --coral: #e56b52;
+      --teal: #247e7b;
+      --gold: #dba766;
+      --shadow: 0 18px 50px rgba(29, 48, 53, .11);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 7% 4%, rgba(229, 107, 82, .09), transparent 23rem),
+        radial-gradient(circle at 96% 11%, rgba(36, 126, 123, .09), transparent 26rem),
+        var(--paper);
+      color: var(--ink);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.6;
+    }
+
+    button, a { font: inherit; }
+    button { cursor: pointer; }
+
+    .site-shell { width: min(1420px, calc(100% - 40px)); margin: 0 auto; padding: 24px 0 54px; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 32px;
+      align-items: end;
+      min-height: 300px;
+      padding: clamp(28px, 5vw, 62px);
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at 88% 21%, rgba(219, 167, 102, .6), transparent 9rem),
+        radial-gradient(circle at 77% 103%, rgba(36, 126, 123, .7), transparent 19rem),
+        linear-gradient(124deg, #173943 0%, #204c52 55%, #1b3a44 100%);
+      color: #fffaf3;
+      box-shadow: var(--shadow);
+    }
+
+    .hero::before,
+    .hero::after {
+      position: absolute;
+      content: "";
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero::before { width: 410px; height: 410px; right: -120px; top: -210px; }
+    .hero::after { width: 580px; height: 580px; right: -190px; top: -300px; }
+
+    .hero-copy, .hero-stats { position: relative; z-index: 1; }
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 18px;
+      color: #f6c892;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+    .kicker::before { width: 28px; height: 2px; content: ""; background: currentColor; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 720px;
+      margin-bottom: 16px;
+      font-family: Georgia, "Noto Serif TC", serif;
+      font-size: clamp(38px, 6vw, 76px);
+      font-weight: 500;
+      letter-spacing: -.06em;
+      line-height: .98;
+    }
+    .hero-intro { max-width: 560px; margin-bottom: 0; color: rgba(255, 250, 243, .77); font-size: 15px; }
+    .hero-stats { display: grid; grid-template-columns: repeat(2, minmax(96px, 1fr)); gap: 10px; align-self: start; min-width: 220px; }
+    .stat {
+      padding: 15px 16px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 16px;
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(10px);
+    }
+    .stat strong { display: block; font-size: 27px; font-weight: 700; line-height: 1.15; }
+    .stat span { display: block; margin-top: 4px; color: rgba(255,255,255,.7); font-size: 12px; }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin: 24px 0 18px;
+    }
+    .toolbar-title { margin: 0; color: var(--muted); font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .toolbar-actions { display: flex; gap: 10px; }
+    .quiet-button {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 15px;
+      background: rgba(255,253,250,.82);
+      color: var(--ink-soft);
+      font-size: 13px;
+      transition: .2s ease;
+    }
+    .quiet-button:hover, .quiet-button:focus-visible { border-color: var(--teal); color: var(--teal); transform: translateY(-1px); }
+
+    .day-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px; }
+    .day-tab {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      min-height: 72px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 14px 18px;
+      background: rgba(255,253,250,.68);
+      color: var(--ink-soft);
+      text-align: left;
+      transition: .2s ease;
+    }
+    .day-tab:hover { border-color: rgba(36,126,123,.45); transform: translateY(-2px); }
+    .day-tab[aria-selected="true"] { border-color: var(--ink); background: var(--ink); color: #fffaf3; box-shadow: 0 11px 25px rgba(21,49,59,.16); }
+    .day-tab .tab-day { display: block; font-size: 12px; font-weight: 900; letter-spacing: .15em; }
+    .day-tab .tab-title { display: block; max-width: 180px; margin-top: 4px; font-size: 14px; font-weight: 700; line-height: 1.35; }
+    .day-tab .tab-arrow { font-size: 20px; opacity: .58; }
+    .day-tab[aria-selected="true"] .tab-arrow { opacity: 1; }
+
+    .content-grid { display: grid; grid-template-columns: minmax(0, .94fr) minmax(420px, 1.06fr); gap: 20px; align-items: start; }
+    .panel { border: 1px solid rgba(229,221,210,.85); border-radius: var(--radius-lg); background: rgba(255,253,250,.8); box-shadow: var(--shadow); }
+    .itinerary-panel { min-height: 680px; padding: clamp(22px, 3vw, 38px); }
+    .panel-header { display: flex; justify-content: space-between; gap: 18px; align-items: flex-start; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+    .panel-eyebrow { margin-bottom: 8px; color: var(--coral); font-size: 12px; font-weight: 900; letter-spacing: .18em; }
+    .panel-header h2 { max-width: 580px; margin-bottom: 9px; font-family: Georgia, "Noto Serif TC", serif; font-size: clamp(28px, 3vw, 42px); font-weight: 500; letter-spacing: -.045em; line-height: 1.05; }
+    .panel-header p { margin-bottom: 0; color: var(--muted); font-size: 14px; }
+    .day-badge { flex: 0 0 auto; display: grid; place-items: center; width: 66px; height: 66px; border-radius: 20px; background: #fae5d7; color: var(--coral); font-size: 13px; font-weight: 900; letter-spacing: .1em; }
+
+    .timeline { position: relative; padding-top: 25px; }
+    .timeline::before { position: absolute; top: 34px; bottom: 34px; left: 88px; width: 1px; content: ""; background: var(--line); }
+    .timeline-item { position: relative; display: grid; grid-template-columns: 72px 32px minmax(0,1fr); gap: 0 16px; padding: 0 0 23px; }
+    .time { padding-top: 3px; color: var(--ink); font-size: 12px; font-weight: 800; line-height: 1.35; text-align: right; white-space: nowrap; }
+    .timeline-dot { position: relative; z-index: 1; display: grid; place-items: center; width: 32px; height: 32px; border: 7px solid var(--paper-2); border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 1px rgba(229,107,82,.3); }
+    .timeline-item[data-kind="transport"] .timeline-dot { background: var(--teal); box-shadow: 0 0 0 1px rgba(36,126,123,.3); }
+    .timeline-item[data-kind="food"] .timeline-dot { background: var(--gold); box-shadow: 0 0 0 1px rgba(219,167,102,.4); }
+    .timeline-item[data-kind="free"] .timeline-dot { background: #a7789d; box-shadow: 0 0 0 1px rgba(167,120,157,.3); }
+    .stop-card { border: 1px solid transparent; border-radius: 17px; padding: 1px 14px 14px; transition: .2s ease; }
+    .stop-card:hover, .stop-card.is-active { border-color: var(--line); background: var(--paper-2); box-shadow: 0 8px 22px rgba(29,48,53,.06); }
+    .stop-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .stop-title { margin: 0; font-size: 16px; font-weight: 850; line-height: 1.35; }
+    .duration { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .stop-detail { margin: 6px 0 10px; color: var(--ink-soft); font-size: 13px; line-height: 1.7; }
+    .stop-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+    .tag { display: inline-flex; align-items: center; min-height: 25px; border-radius: 999px; padding: 3px 9px; background: #f2eee7; color: var(--ink-soft); font-size: 11px; font-weight: 700; }
+    .tag.place { background: #e6f1ee; color: var(--teal); }
+    .map-focus { margin-left: auto; border: 0; padding: 3px 0; background: transparent; color: var(--coral); font-size: 11px; font-weight: 800; }
+    .map-focus:hover, .map-focus:focus-visible { text-decoration: underline; }
+
+    .map-panel { position: sticky; top: 18px; overflow: hidden; }
+    .map-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; padding: 27px 28px 18px; }
+    .map-head h2 { margin-bottom: 5px; font-family: Georgia, "Noto Serif TC", serif; font-size: 26px; font-weight: 500; letter-spacing: -.04em; }
+    .map-head p { margin-bottom: 0; color: var(--muted); font-size: 12px; }
+    .route-key { display: flex; align-items: center; gap: 8px; margin-top: 5px; color: var(--muted); font-size: 11px; white-space: nowrap; }
+    .route-key::before { width: 25px; height: 3px; content: ""; border-radius: 9px; background: var(--coral); }
+    #map { height: 585px; background: #dfe9e5; }
+    .map-fallback { display: grid; place-items: center; height: 100%; padding: 40px; color: var(--ink-soft); text-align: center; }
+    .map-note { display: flex; gap: 10px; align-items: flex-start; padding: 16px 28px 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.65; }
+    .map-note .note-icon { flex: 0 0 auto; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #fff1d9; color: #ae7628; font-size: 12px; font-weight: 900; }
+    .leaflet-container { font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif; }
+    .leaflet-control-zoom { margin: 17px !important; border: 0 !important; box-shadow: 0 5px 18px rgba(21,49,59,.15) !important; }
+    .leaflet-control-zoom a { color: var(--ink) !important; }
+    .stop-pin { display: grid; place-items: center; width: 28px; height: 28px; border: 4px solid rgba(255,253,250,.94); border-radius: 50% 50% 50% 0; background: var(--coral); box-shadow: 0 4px 10px rgba(21,49,59,.25); color: white; font-size: 11px; font-weight: 900; transform: rotate(-45deg); }
+    .stop-pin span { transform: rotate(45deg); }
+    .leaflet-popup-content-wrapper { border-radius: 14px; }
+    .popup-title { margin-bottom: 3px; color: var(--ink); font-weight: 800; }
+    .popup-detail { color: var(--ink-soft); font-size: 12px; line-height: 1.55; }
+
+    .bottom-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(260px, .85fr); gap: 20px; margin-top: 20px; }
+    .notes-card, .route-card { padding: 27px 30px; }
+    .section-label { margin-bottom: 8px; color: var(--coral); font-size: 11px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; }
+    .notes-card h2, .route-card h2 { margin-bottom: 12px; font-family: Georgia, "Noto Serif TC", serif; font-size: 27px; font-weight: 500; letter-spacing: -.04em; }
+    .notes-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 9px 25px; margin: 0; padding: 0; list-style: none; }
+    .notes-list li { position: relative; padding-left: 18px; color: var(--ink-soft); font-size: 13px; }
+    .notes-list li::before { position: absolute; top: .65em; left: 0; width: 7px; height: 7px; border-radius: 50%; content: ""; background: var(--gold); }
+    .route-card { background: var(--ink); color: #fffaf3; }
+    .route-card .section-label { color: #f6c892; }
+    .route-card h2 { margin-bottom: 7px; }
+    .route-card p { margin-bottom: 0; color: rgba(255,250,243,.7); font-size: 13px; }
+    .route-line { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 17px; }
+    .route-chip { display: inline-flex; align-items: center; gap: 7px; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; padding: 6px 10px; color: rgba(255,250,243,.82); font-size: 11px; }
+    .route-chip::before { width: 7px; height: 7px; border-radius: 50%; content: ""; background: var(--chip-color, var(--coral)); }
+
+    .toast { position: fixed; right: 24px; bottom: 24px; z-index: 1000; max-width: min(340px, calc(100% - 48px)); border-radius: 999px; padding: 11px 16px; background: var(--ink); color: #fffaf3; box-shadow: var(--shadow); font-size: 13px; opacity: 0; pointer-events: none; transform: translateY(10px); transition: .25s ease; }
+    .toast.is-visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 980px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .map-panel { position: static; }
+      #map { height: 470px; }
+      .bottom-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 680px) {
+      .site-shell { width: min(100% - 24px, 1420px); padding-top: 12px; }
+      .hero { grid-template-columns: 1fr; gap: 26px; min-height: 0; padding: 30px 24px; }
+      h1 { font-size: 47px; }
+      .hero-stats { min-width: 0; max-width: 360px; }
+      .toolbar { align-items: flex-start; flex-direction: column; gap: 12px; }
+      .day-tabs { grid-template-columns: repeat(2, 1fr); }
+      .day-tab { min-height: 66px; padding: 12px 14px; }
+      .day-tab .tab-title { font-size: 12px; }
+      .itinerary-panel { padding: 22px 16px; }
+      .panel-header { padding: 0 6px 23px; }
+      .panel-header h2 { font-size: 32px; }
+      .timeline::before { left: 72px; }
+      .timeline-item { grid-template-columns: 58px 28px minmax(0,1fr); gap: 0 11px; }
+      .timeline-dot { width: 28px; height: 28px; border-width: 6px; }
+      .time { font-size: 11px; white-space: normal; }
+      .stop-card { padding-right: 7px; }
+      .stop-top { display: block; }
+      .duration { display: block; margin-top: 4px; }
+      .map-head { padding: 22px 18px 15px; }
+      .map-note { padding: 14px 18px 18px; }
+      #map { height: 430px; }
+      .notes-card, .route-card { padding: 24px 21px; }
+      .notes-list { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      body { background: white; }
+      .site-shell { width: 100%; padding: 0; }
+      .hero, .panel, .bottom-grid > * { box-shadow: none; }
+      .hero { min-height: 0; border-radius: 0; }
+      .toolbar-actions, .day-tabs, .map-focus, .toast { display: none !important; }
+      .content-grid, .bottom-grid { display: block; }
+      .itinerary-panel { margin-bottom: 18px; }
+      .map-panel { position: static; }
+      #map { height: 410px; }
+      .route-card { margin-top: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="kicker">Travel log · 5 days</p>
+        <h1>深圳 × 香港<br>慢慢走一圈。</h1>
+        <p class="hero-intro">把城市天際線、海邊散步、夜市煙火和一點留白，整理成一份可以邊走邊看的行程記錄。</p>
+      </div>
+      <div class="hero-stats" aria-label="行程摘要">
+        <div class="stat"><strong>5</strong><span>天行程</span></div>
+        <div class="stat"><strong>2</strong><span>座城市</span></div>
+        <div class="stat"><strong>1</strong><span>次過關</span></div>
+        <div class="stat"><strong>∞</strong><span>小吃額度</span></div>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <p class="toolbar-title">選一天，查看詳細節奏與路線</p>
+      <div class="toolbar-actions">
+        <button class="quiet-button" id="copy-button" type="button">複製行程摘要</button>
+        <button class="quiet-button" id="print-button" type="button">列印行程</button>
+      </div>
+    </div>
+
+    <nav class="day-tabs" id="day-tabs" aria-label="行程日選擇"></nav>
+
+    <main class="content-grid">
+      <section class="panel itinerary-panel" aria-labelledby="day-title">
+        <div class="panel-header">
+          <div>
+            <p class="panel-eyebrow" id="day-eyebrow">DAY 01</p>
+            <h2 id="day-title"></h2>
+            <p id="day-subtitle"></p>
+          </div>
+          <div class="day-badge" id="day-badge">D1</div>
+        </div>
+        <div class="timeline" id="timeline" aria-live="polite"></div>
+      </section>
+
+      <aside class="panel map-panel" aria-labelledby="map-title">
+        <div class="map-head">
+          <div>
+            <h2 id="map-title">今日路線</h2>
+            <p id="map-subtitle">點擊左側行程查看地圖位置</p>
+          </div>
+          <span class="route-key" id="route-key">Day 1</span>
+        </div>
+        <div id="map" role="application" aria-label="深圳香港行程路線地圖"></div>
+        <div class="map-note">
+          <span class="note-icon">i</span>
+          <span>地圖線條用來表示移動順序，不是即時導航。飯店、火鍋店與水療店尚未有確切地址，先以區域或附近地標示意。</span>
+        </div>
+      </aside>
+    </main>
+
+    <section class="bottom-grid">
+      <article class="panel notes-card">
+        <p class="section-label">Before you go</p>
+        <h2>這趟旅程的小提醒</h2>
+        <ul class="notes-list">
+          <li>Day 2 華強北逛足半天，建議穿好走的鞋。</li>
+          <li>崗廈北只安排短停，預留拍照與步行時間。</li>
+          <li>Day 3 人才公園抓夕陽，天色變暗後再前往夜市。</li>
+          <li>Day 4 早上跨境，行李先寄放再開始香港行程。</li>
+          <li>過關、叫車、晚間交通都保留了緩衝，不用卡太緊。</li>
+          <li>巨人展與餐廳位置／預約，出發前再確認一次。</li>
+        </ul>
+      </article>
+      <article class="panel route-card">
+        <p class="section-label">Route overview</p>
+        <h2>五天，兩座城市</h2>
+        <p>前三天走深圳南山、福田與寶安；第四天沿香港島走到維港，第五天從旺角慢慢收尾，再前往機場。</p>
+        <div class="route-line" id="route-line"></div>
+      </article>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    const itinerary = [
+      {
+        id: "day1",
+        label: "Day 1",
+        tabTitle: "抵達深圳・鮮牛肉火鍋",
+        title: "抵達深圳，先把節奏放慢",
+        subtitle: "入住南山｜晚餐後看體力逛古城或商場",
+        color: "#e56b52",
+        route: [
+          { id: "d1-hotel", name: "飯店（南山）", short: "飯店", coords: [22.5333, 113.9300] },
+          { id: "d1-dinner", name: "鮮牛肉火鍋｜店家待定", short: "火鍋", coords: [22.5333, 113.9300] },
+          { id: "d1-night", name: "南頭古城／附近商場｜二選一", short: "晚間散步", coords: [22.5418, 113.9289] }
+        ],
+        items: [
+          { time: "16:00–17:00", duration: "約 1 小時", title: "抵達飯店", detail: "辦理入住、放行李，把房間整理好。", kind: "free", tags: ["抵達", "入住"], place: "飯店（南山）", stop: "d1-hotel" },
+          { time: "17:00–18:00", duration: "約 1 小時", title: "休息一下", detail: "先補水、充電、洗澡，讓晚上還有體力。", kind: "free", tags: ["留白", "充電"], place: "飯店", stop: "d1-hotel" },
+          { time: "18:00 起", duration: "晚餐時段", title: "第一天晚餐：鮮牛肉火鍋", detail: "第一餐先吃熱呼呼的鮮牛肉火鍋；店家可依飯店附近再決定。", kind: "food", tags: ["晚餐", "潮汕味"], place: "店家待定", stop: "d1-dinner" },
+          { time: "飯後", duration: "看體力安排", title: "古城、小吃糖水或商場逛街", detail: "吃飽後三選一：到旁邊逛古城、找小吃糖水，或改去商場慢慢走。", kind: "free", tags: ["散步", "甜點", "備選"], place: "南頭古城／商場", stop: "d1-night" }
+        ]
+      },
+      {
+        id: "day2",
+        label: "Day 2",
+        tabTitle: "華強北 → 深圳之眼 → 水療",
+        title: "華強北逛足半天，再去水療待到晚上",
+        subtitle: "電子街探店｜崗廈北短停｜把晚上留給放鬆",
+        color: "#247e7b",
+        route: [
+          { id: "d2-hotel", name: "飯店（南山）", short: "飯店", coords: [22.5333, 113.9300] },
+          { id: "d2-hq", name: "華強北", short: "華強北", coords: [22.5457, 114.0871] },
+          { id: "d2-gangxia", name: "崗廈北｜深圳之眼", short: "深圳之眼", coords: [22.5327, 114.0598] },
+          { id: "d2-spa", name: "水療｜店家待定，先以福田示意", short: "水療", coords: [22.5400, 114.0700] }
+        ],
+        items: [
+          { time: "09:30–10:30", duration: "約 1 小時", title: "飯店出發，前往華強北", detail: "早上出發，保留市區交通與找入口的緩衝。", kind: "transport", tags: ["交通", "出發"], place: "南山 → 華強北", stop: "d2-hq" },
+          { time: "12:00–16:00", duration: "約 4 小時", title: "華強北逛足半天", detail: "把主要時間留給電子街、商場與周邊小吃；中間可找地方坐下整理戰利品。", kind: "free", tags: ["逛街", "採買", "小吃"], place: "華強北", stop: "d2-hq" },
+          { time: "16:00–17:00", duration: "約 1 小時", title: "崗廈北短停，看看「深圳之眼」", detail: "從華強北移動到崗廈北，安排一段短暫拍照與城市觀察。", kind: "free", tags: ["拍照", "地標"], place: "崗廈北", stop: "d2-gangxia" },
+          { time: "17:30–23:00", duration: "約 5.5 小時", title: "水療：把晚上留給放鬆", detail: "預計待到晚上；店家地址確認後，可把地圖上的示意點改成精準位置。", kind: "free", tags: ["放鬆", "晚間"], place: "水療店待定", stop: "d2-spa" }
+        ]
+      },
+      {
+        id: "day3",
+        label: "Day 3",
+        tabTitle: "蛇口海景・人才公園・夜市",
+        title: "蛇口海景，接一段深圳灣黃昏",
+        subtitle: "海上世界 → 深圳灣萬象城 → 人才公園 → 樂翻夜市",
+        color: "#d19a56",
+        route: [
+          { id: "d3-seaworld", name: "海上世界／明華輪", short: "海上世界", coords: [22.4845, 113.9174] },
+          { id: "d3-mixc", name: "深圳灣萬象城｜巨人展位置待確認", short: "深圳灣萬象城", coords: [22.5173, 113.9430] },
+          { id: "d3-talent", name: "人才公園", short: "人才公園", coords: [22.5171, 113.9512] },
+          { id: "d3-night", name: "樂翻夜市｜翻身地鐵站 B 出口一帶", short: "樂翻夜市", coords: [22.5668, 113.9033] }
+        ],
+        items: [
+          { time: "10:30–12:00", duration: "約 1.5 小時", title: "海上世界附近吃午餐", detail: "先在蛇口一帶找午餐，吃完直接開始海邊散步。", kind: "food", tags: ["午餐", "蛇口"], place: "海上世界附近", stop: "d3-seaworld" },
+          { time: "12:00–13:30", duration: "約 1.5 小時", title: "海上世界：明華輪、廣場、海邊散步", detail: "看明華輪與廣場，沿著海邊走一段，讓下午從海風開始。", kind: "free", tags: ["海景", "散步", "拍照"], place: "海上世界", stop: "d3-seaworld" },
+          { time: "14:00–16:00", duration: "約 2 小時", title: "深圳灣萬象城：巨人展、逛街、喝飲料", detail: "安排兩小時逛展與商場，順便喝飲料、坐下休息。展覽館址請出發前再核對。", kind: "free", tags: ["展覽", "逛街", "休息"], place: "深圳灣萬象城", stop: "d3-mixc" },
+          { time: "16:30–18:15", duration: "約 1 小時 45 分", title: "人才公園看天際線，等天色變暗", detail: "抓住藍調時刻前後的光線，看深圳灣天際線慢慢亮起來。", kind: "free", tags: ["夕陽", "天際線"], place: "人才公園", stop: "d3-talent" },
+          { time: "18:15–19:00", duration: "約 45 分鐘", title: "叫車前往樂翻夜市", detail: "預留等車與晚間交通緩衝，不要把抵達時間壓得太緊。", kind: "transport", tags: ["叫車", "緩衝"], place: "人才公園 → 翻身", stop: "d3-night" },
+          { time: "19:00–21:00", duration: "約 2 小時", title: "樂翻夜市：晚餐＋逛夜市", detail: "晚上把胃口留給夜市小吃，邊吃邊逛，看到想吃的再決定。", kind: "food", tags: ["晚餐", "夜市", "小吃"], place: "樂翻夜市", stop: "d3-night" }
+        ]
+      },
+      {
+        id: "day4",
+        label: "Day 4",
+        tabTitle: "中環・太平山・維港夜景",
+        title: "深圳出發，沿香港島的坡度走到維港",
+        subtitle: "南山 → 尖沙咀寄行李 → 中環／太平山 → 維港夜景",
+        color: "#a7789d",
+        route: [
+          { id: "d4-shenzhen", name: "南山飯店", short: "南山", coords: [22.5333, 113.9300] },
+          { id: "d4-tst", name: "香港尖沙咀飯店｜寄行李", short: "尖沙咀", coords: [22.2974, 114.1720] },
+          { id: "d4-central", name: "中環散步", short: "中環", coords: [22.2819, 114.1580] },
+          { id: "d4-tram", name: "太平山纜車下站", short: "纜車", coords: [22.2773, 114.1612] },
+          { id: "d4-peak", name: "太平山山頂", short: "山頂", coords: [22.2753, 114.1458] },
+          { id: "d4-ferry", name: "中環碼頭／天星小輪", short: "天星小輪", coords: [22.2866, 114.1603] },
+          { id: "d4-night", name: "尖沙咀海旁、星光大道", short: "維港夜景", coords: [22.2944, 114.1717] }
+        ],
+        items: [
+          { time: "07:30–10:30", duration: "約 3 小時", title: "從南山出發，前往香港尖沙咀", detail: "早上跨境，將過關、交通與可能排隊時間一起算進來。", kind: "transport", tags: ["跨境", "交通"], place: "南山 → 尖沙咀", stop: "d4-tst" },
+          { time: "10:30–11:00", duration: "約 30 分鐘", title: "飯店寄行李，再出門", detail: "先把大件行李放下，輕裝開始香港市區行程。", kind: "free", tags: ["寄行李", "整理"], place: "尖沙咀飯店", stop: "d4-tst" },
+          { time: "11:30–12:30", duration: "約 1 小時", title: "午餐：燒鵝", detail: "先吃一頓港味午餐，再往中環與太平山移動。", kind: "food", tags: ["午餐", "港味"], place: "尖沙咀／中環｜店家待定", stop: "d4-tst" },
+          { time: "12:30–17:00", duration: "約 4.5 小時", title: "中環散步、太平山、搭纜車看全景", detail: "白天走中環街區，再搭纜車上太平山，把香港全景留給下午。", kind: "free", tags: ["中環", "纜車", "全景"], place: "中環 → 太平山", stop: "d4-peak" },
+          { time: "17:30–18:15", duration: "約 45 分鐘", title: "中環碼頭 → 天星小輪 → 尖沙咀", detail: "從香港島切換到九龍側，沿途看一段黃昏維港。", kind: "transport", tags: ["渡輪", "維港"], place: "中環碼頭 → 尖沙咀", stop: "d4-ferry" },
+          { time: "18:30–19:30", duration: "約 1 小時", title: "晚餐：現場決定", detail: "回到尖沙咀後看當下想吃什麼，不預先把晚餐綁死。", kind: "food", tags: ["晚餐", "彈性"], place: "尖沙咀｜店家待定", stop: "d4-tst" },
+          { time: "19:30–20:30", duration: "約 1 小時", title: "尖沙咀海旁、星光大道、維港夜景酒吧", detail: "用海旁夜景收尾；想喝酒就找一間順路的酒吧坐下。", kind: "free", tags: ["夜景", "酒吧", "收尾"], place: "尖沙咀海旁", stop: "d4-night" }
+        ]
+      },
+      {
+        id: "day5",
+        label: "Day 5",
+        tabTitle: "港式早餐・旺角街頭・雲吞麵",
+        title: "用港式早餐和旺角街頭，替旅程收尾",
+        subtitle: "尖沙咀寄行李｜金魚街、波鞋街｜18:50 飛回台灣",
+        color: "#4e7f9d",
+        route: [
+          { id: "d5-hotel", name: "尖沙咀飯店／行李寄放", short: "飯店", coords: [22.2974, 114.1720] },
+          { id: "d5-breakfast", name: "港式早餐｜店家待定", short: "早餐", coords: [22.2974, 114.1720] },
+          { id: "d5-mongkok", name: "旺角｜金魚街、波鞋街", short: "旺角", coords: [22.3184, 114.1694] },
+          { id: "d5-lunch", name: "雲吞麵｜店家待定", short: "雲吞麵", coords: [22.3174, 114.1695] },
+          { id: "d5-kowloon", name: "九龍站", short: "九龍站", coords: [22.3049, 114.1613] },
+          { id: "d5-airport", name: "香港國際機場", short: "機場", coords: [22.3080, 113.9185] }
+        ],
+        items: [
+          { time: "08:45–09:15", duration: "約 30 分鐘", title: "退房，行李先寄飯店", detail: "退房後先把行李寄放在飯店，接下來輕裝走旺角。", kind: "free", tags: ["退房", "寄行李"], place: "尖沙咀飯店", stop: "d5-hotel" },
+          { time: "09:15–10:00", duration: "約 45 分鐘", title: "港式早餐", detail: "用一頓港式早餐開啟最後一天；店家可依飯店附近現場決定。", kind: "food", tags: ["早餐", "港味"], place: "尖沙咀｜店家待定", stop: "d5-breakfast" },
+          { time: "10:15–12:15", duration: "約 2 小時", title: "旺角：金魚街、波鞋街、街頭逛逛", detail: "逛金魚街與波鞋街，沿著旺角街頭慢慢走，留時間買最後的伴手禮。", kind: "free", tags: ["旺角", "逛街", "採買"], place: "旺角", stop: "d5-mongkok" },
+          { time: "12:45–13:30", duration: "約 45 分鐘", title: "午餐：雲吞麵", detail: "用一碗雲吞麵收尾香港的街頭味道；店家待出發前確認。", kind: "food", tags: ["午餐", "雲吞麵"], place: "旺角｜店家待定", stop: "d5-lunch" },
+          { time: "13:30–14:30", duration: "約 1 小時", title: "回飯店取行李，前往九龍站", detail: "午餐後回尖沙咀拿行李，再前往九龍站搭機場快線。", kind: "transport", tags: ["取行李", "交通"], place: "旺角 → 尖沙咀 → 九龍站", stop: "d5-kowloon" },
+          { time: "14:30–15:30", duration: "約 1 小時", title: "飯店 → 九龍站 → 香港機場", detail: "提早抵達機場，預留報到、安檢與航廈步行時間。", kind: "transport", tags: ["機場", "緩衝"], place: "九龍站 → 香港機場", stop: "d5-airport" },
+          { time: "15:30–18:50", duration: "約 3 小時 20 分", title: "機場報到、安檢、候機", detail: "抵達機場後完成報到與安檢，留一段舒服的候機時間。", kind: "free", tags: ["候機", "免稅店"], place: "香港國際機場", stop: "d5-airport" },
+          { time: "18:50", duration: "回台灣", title: "飛回台灣", detail: "帶著五天的城市風景和吃過的味道回家。", kind: "transport", tags: ["航班", "回程"], place: "香港 → 台灣", stop: "d5-airport" }
+        ]
+      }
+    ]; 
+
+    let activeDayId = itinerary[0].id;
+    let map = null;
+    let routeLayer = null;
+    let markers = new Map();
+
+    const $ = (selector) => document.querySelector(selector);
+    const dayById = (id) => itinerary.find((day) => day.id === id);
+
+    function renderTabs() {
+      $("#day-tabs").innerHTML = itinerary.map((day, index) => `
+        <button class="day-tab" type="button" role="tab" aria-selected="${day.id === activeDayId}" aria-controls="timeline" data-day-id="${day.id}">
+          <span><span class="tab-day">${day.label}</span><span class="tab-title">${day.tabTitle}</span></span>
+          <span class="tab-arrow" aria-hidden="true">↗</span>
+        </button>
+      `).join("");
+      document.querySelectorAll(".day-tab").forEach((button) => {
+        button.addEventListener("click", () => selectDay(button.dataset.dayId));
+      });
+    }
+
+    function renderDay(day) {
+      $("#day-eyebrow").textContent = day.label.toUpperCase();
+      $("#day-title").textContent = day.title;
+      $("#day-subtitle").textContent = day.subtitle;
+      $("#day-badge").textContent = `D${itinerary.indexOf(day) + 1}`;
+      $("#route-key").textContent = day.label;
+      $("#route-key").style.setProperty("--route-color", day.color);
+      document.documentElement.style.setProperty("--coral", day.color);
+      $("#timeline").innerHTML = day.items.map((item) => `
+        <article class="timeline-item" data-kind="${item.kind}" data-stop-id="${item.stop}">
+          <time class="time">${item.time}</time>
+          <span class="timeline-dot" aria-hidden="true"></span>
+          <div class="stop-card">
+            <div class="stop-top"><h3 class="stop-title">${item.title}</h3><span class="duration">${item.duration}</span></div>
+            <p class="stop-detail">${item.detail}</p>
+            <div class="stop-meta">
+              ${item.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}
+              <span class="tag place">${item.place}</span>
+              <button class="map-focus" type="button" data-stop-id="${item.stop}">在地圖查看 ↗</button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+      document.querySelectorAll(".map-focus").forEach((button) => {
+        button.addEventListener("click", () => focusStop(button.dataset.stopId));
+      });
+    }
+
+    function initMap() {
+      if (!window.L) {
+        $("#map").innerHTML = '<div class="map-fallback"><div><strong>地圖目前需要網路連線</strong><br>行程時間軸仍可正常使用；重新整理頁面即可再次載入地圖。</div></div>';
+        return;
+      }
+      map = L.map("map", { zoomControl: false, scrollWheelZoom: false, attributionControl: true });
+      L.control.zoom({ position: "bottomright" }).addTo(map);
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+      routeLayer = L.layerGroup().addTo(map);
+      drawRoute(dayById(activeDayId));
+    }
+
+    function drawRoute(day, focusStopId = null) {
+      if (!map || !routeLayer) return;
+      routeLayer.clearLayers();
+      markers = new Map();
+      const validPoints = day.route.filter((point) => Array.isArray(point.coords));
+      const latLngs = validPoints.map((point) => point.coords);
+      L.polyline(latLngs, { color: day.color, weight: 5, opacity: .85, dashArray: "10 9", lineCap: "round" }).addTo(routeLayer);
+      validPoints.forEach((point, index) => {
+        const icon = L.divIcon({ className: "", html: `<div class="stop-pin" style="background:${day.color}"><span>${index + 1}</span></div>`, iconSize: [28, 28], iconAnchor: [8, 27], popupAnchor: [6, -25] });
+        const marker = L.marker(point.coords, { icon }).addTo(routeLayer);
+        marker.bindPopup(`<div class="popup-title">${point.name}</div><div class="popup-detail">${day.label} · 第 ${index + 1} 站</div>`);
+        markers.set(point.id, marker);
+      });
+      if (latLngs.length > 1) map.fitBounds(L.latLngBounds(latLngs), { padding: [25, 25], maxZoom: 13 });
+      if (focusStopId) openStop(focusStopId, false);
+    }
+
+    function openStop(stopId, fly = true) {
+      const marker = markers.get(stopId);
+      const point = dayById(activeDayId).route.find((item) => item.id === stopId);
+      if (!marker || !point || !map) return;
+      document.querySelectorAll(".stop-card").forEach((card) => card.classList.remove("is-active"));
+      document.querySelectorAll(`[data-stop-id="${stopId}"] .stop-card`).forEach((card) => card.classList.add("is-active"));
+      const item = document.querySelector(`.timeline-item[data-stop-id="${stopId}"] .stop-card`);
+      if (item) item.classList.add("is-active");
+      if (fly) map.flyTo(point.coords, Math.max(map.getZoom(), 14), { duration: .65 });
+      marker.openPopup();
+    }
+
+    function focusStop(stopId) {
+      openStop(stopId);
+      const item = document.querySelector(`.timeline-item[data-stop-id="${stopId}"]`);
+      if (window.matchMedia("(max-width: 980px)").matches) {
+        const mapPanel = document.querySelector(".map-panel");
+        if (mapPanel) {
+          mapPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+          window.setTimeout(() => {
+            if (!map) return;
+            map.invalidateSize();
+            const marker = markers.get(stopId);
+            if (marker) marker.openPopup();
+          }, 450);
+        }
+        return;
+      }
+      if (item) item.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function selectDay(dayId) {
+      const day = dayById(dayId);
+      if (!day) return;
+      activeDayId = dayId;
+      document.querySelectorAll(".day-tab").forEach((button) => button.setAttribute("aria-selected", String(button.dataset.dayId === dayId)));
+      renderDay(day);
+      drawRoute(day);
+      $("#map-subtitle").textContent = `${day.route.length} 個節點 · 點擊行程查看位置`;
+    }
+
+    function showToast(message) {
+      const toast = $("#toast");
+      toast.textContent = message;
+      toast.classList.add("is-visible");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove("is-visible"), 2300);
+    }
+
+    function copySummary() {
+      const summary = itinerary.map((day) => `${day.label}｜${day.title}\n${day.items.map((item) => `${item.time} ${item.title}`).join("\n")}`).join("\n\n");
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(summary).then(() => showToast("行程摘要已複製")).catch(() => showToast("瀏覽器未允許複製，請改用列印功能"));
+      } else {
+        const textarea = document.createElement("textarea");
+        textarea.value = summary;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        try { document.execCommand("copy"); showToast("行程摘要已複製"); } catch (error) { showToast("瀏覽器未允許複製，請改用列印功能"); }
+        textarea.remove();
+      }
+    }
+
+    function renderRouteOverview() {
+      $("#route-line").innerHTML = itinerary.map((day) => `<span class="route-chip" style="--chip-color:${day.color}">${day.label}</span>`).join("");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderTabs();
+      renderDay(dayById(activeDayId));
+      renderRouteOverview();
+      initMap();
+      $("#copy-button").addEventListener("click", copySummary);
+      $("#print-button").addEventListener("click", () => window.print());
+    });
+  </script>
+</body>
+</html>
