@@ -313,7 +313,7 @@
         <div id="map" role="application" aria-label="深圳香港行程路線地圖"></div>
         <div class="map-note">
           <span class="note-icon">i</span>
-          <span>地圖線條用來表示移動順序，不是即時導航。深圳飯店與火鍋店已更新為精確位置；水療店與香港飯店仍以區域或附近地標示意。</span>
+          <span>地圖線條用來表示移動順序，不是即時導航。飯店與已決定的景點皆使用精確位置；水療店及尚未決定的餐廳仍以區域示意。</span>
         </div>
       </aside>
     </main>
@@ -328,7 +328,7 @@
           <li>Day 3 人才公園抓夕陽，天色變暗後再前往夜市。</li>
           <li>Day 4 早上跨境，行李先寄放再開始香港行程。</li>
           <li>過關、叫車、晚間交通都保留了緩衝，不用卡太緊。</li>
-          <li>巨人展與餐廳位置／預約，出發前再確認一次。</li>
+          <li>巨人展展期與餐廳預約，出發前再確認一次。</li>
         </ul>
       </article>
       <article class="panel route-card">
@@ -355,13 +355,13 @@
         route: [
           { id: "d1-hotel", name: "深圳南山新豪方桔子水晶酒店", short: "飯店", coords: [22.544019, 113.921193], amapCoords: [22.540978262626528, 113.92605543136597] },
           { id: "d1-dinner", name: "潮沫牛肉火鍋店（南頭老店）", short: "火鍋", coords: [22.547923, 113.918924], amapPoiId: "B02F37TQHV" },
-          { id: "d1-night", name: "南頭古城／附近商場｜二選一", short: "晚間散步", coords: [22.5418, 113.9289] }
+          { id: "d1-night", name: "南頭古城", short: "晚間散步", coords: [22.546064, 113.916568], amapPoiId: "B02F37U89L" }
         ],
         items: [
           { time: "16:00–17:00", duration: "約 1 小時", title: "抵達飯店", detail: "辦理入住、放行李，把房間整理好。地址：深圳市南山區深南大道 10188 號新豪方大廈。", kind: "free", tags: ["抵達", "入住"], place: "深圳南山新豪方桔子水晶酒店", stop: "d1-hotel" },
           { time: "17:00–18:00", duration: "約 1 小時", title: "休息一下", detail: "先補水、充電、洗澡，讓晚上還有體力。", kind: "free", tags: ["留白", "充電"], place: "飯店", stop: "d1-hotel" },
           { time: "18:00 起", duration: "晚餐時段", title: "第一天晚餐：潮沫牛肉火鍋", detail: "前往潮沫牛肉火鍋店（南頭老店）；高德分享路線顯示距飯店步行約 670 公尺。", kind: "food", tags: ["晚餐", "潮汕味"], place: "潮沫牛肉火鍋店（南頭老店）", stop: "d1-dinner" },
-          { time: "飯後", duration: "看體力安排", title: "古城、小吃糖水或商場逛街", detail: "吃飽後三選一：到旁邊逛古城、找小吃糖水，或改去商場慢慢走。", kind: "free", tags: ["散步", "甜點", "備選"], place: "南頭古城／商場", stop: "d1-night" }
+          { time: "飯後", duration: "看體力安排", title: "南頭古城散步、吃小吃糖水", detail: "吃飽後前往南頭古城散步；地址：南頭街道南頭城社區深南大道 12024 號（南頭古城地鐵站 C 口）。", kind: "free", tags: ["散步", "甜點", "古城"], place: "南頭古城", stop: "d1-night" }
         ]
       },
       {
@@ -389,18 +389,18 @@
         label: "Day 3",
         tabTitle: "蛇口海景・人才公園・夜市",
         title: "蛇口海景，接一段深圳灣黃昏",
-        subtitle: "海上世界 → 深圳灣萬象城 → 人才公園 → 樂翻夜市",
+        subtitle: "海上世界 → 深圳萬象天地 → 人才公園 → 樂翻夜市",
         color: "#d19a56",
         route: [
           { id: "d3-seaworld", name: "海上世界／明華輪", short: "海上世界", coords: [22.4845, 113.9174] },
-          { id: "d3-mixc", name: "深圳灣萬象城｜巨人展位置待確認", short: "深圳灣萬象城", coords: [22.5173, 113.9430] },
+          { id: "d3-mixc", name: "深圳萬象天地｜巨人展", short: "深圳萬象天地", coords: [22.544854, 113.951065], amapPoiId: "B0FFF540NK" },
           { id: "d3-talent", name: "人才公園", short: "人才公園", coords: [22.5171, 113.9512] },
           { id: "d3-night", name: "樂翻夜市｜翻身地鐵站 B 出口一帶", short: "樂翻夜市", coords: [22.5668, 113.9033] }
         ],
         items: [
           { time: "10:30–12:00", duration: "約 1.5 小時", title: "海上世界附近吃午餐", detail: "先在蛇口一帶找午餐，吃完直接開始海邊散步。", kind: "food", tags: ["午餐", "蛇口"], place: "海上世界附近", stop: "d3-seaworld" },
           { time: "12:00–13:30", duration: "約 1.5 小時", title: "海上世界：明華輪、廣場、海邊散步", detail: "看明華輪與廣場，沿著海邊走一段，讓下午從海風開始。", kind: "free", tags: ["海景", "散步", "拍照"], place: "海上世界", stop: "d3-seaworld" },
-          { time: "14:00–16:00", duration: "約 2 小時", title: "深圳灣萬象城：巨人展、逛街、喝飲料", detail: "安排兩小時逛展與商場，順便喝飲料、坐下休息。展覽館址請出發前再核對。", kind: "free", tags: ["展覽", "逛街", "休息"], place: "深圳灣萬象城", stop: "d3-mixc" },
+          { time: "14:00–16:00", duration: "約 2 小時", title: "深圳萬象天地：巨人展、逛街、喝飲料", detail: "安排兩小時逛展與商場，順便喝飲料、坐下休息。地址：南山區科發路 19 號。", kind: "free", tags: ["展覽", "逛街", "休息"], place: "深圳萬象天地", stop: "d3-mixc" },
           { time: "16:30–18:15", duration: "約 1 小時 45 分", title: "人才公園看天際線，等天色變暗", detail: "抓住藍調時刻前後的光線，看深圳灣天際線慢慢亮起來。", kind: "free", tags: ["夕陽", "天際線"], place: "人才公園", stop: "d3-talent" },
           { time: "18:15–19:00", duration: "約 45 分鐘", title: "叫車前往樂翻夜市", detail: "預留等車與晚間交通緩衝，不要把抵達時間壓得太緊。", kind: "transport", tags: ["叫車", "緩衝"], place: "人才公園 → 翻身", stop: "d3-night" },
           { time: "19:00–21:00", duration: "約 2 小時", title: "樂翻夜市：晚餐＋逛夜市", detail: "晚上把胃口留給夜市小吃，邊吃邊逛，看到想吃的再決定。", kind: "food", tags: ["晚餐", "夜市", "小吃"], place: "樂翻夜市", stop: "d3-night" }
@@ -415,7 +415,7 @@
         color: "#a7789d",
         route: [
           { id: "d4-shenzhen", name: "深圳南山新豪方桔子水晶酒店", short: "南山", coords: [22.544019, 113.921193], amapCoords: [22.540978262626528, 113.92605543136597] },
-          { id: "d4-tst", name: "香港尖沙咀飯店｜寄行李", short: "尖沙咀", coords: [22.2974, 114.1720] },
+          { id: "d4-tst", name: "龍堡國際賓館｜寄行李", short: "尖沙咀", coords: [22.302679, 114.169446], amapPoiId: "B073C03UDM" },
           { id: "d4-central", name: "中環散步", short: "中環", coords: [22.2819, 114.1580] },
           { id: "d4-tram", name: "太平山纜車下站", short: "纜車", coords: [22.2773, 114.1612] },
           { id: "d4-peak", name: "太平山山頂", short: "山頂", coords: [22.2753, 114.1458] },
@@ -424,7 +424,7 @@
         ],
         items: [
           { time: "07:30–10:30", duration: "約 3 小時", title: "從南山出發，前往香港尖沙咀", detail: "早上跨境，將過關、交通與可能排隊時間一起算進來。", kind: "transport", tags: ["跨境", "交通"], place: "南山 → 尖沙咀", stop: "d4-tst" },
-          { time: "10:30–11:00", duration: "約 30 分鐘", title: "飯店寄行李，再出門", detail: "先把大件行李放下，輕裝開始香港市區行程。", kind: "free", tags: ["寄行李", "整理"], place: "尖沙咀飯店", stop: "d4-tst" },
+          { time: "10:30–11:00", duration: "約 30 分鐘", title: "龍堡國際賓館寄行李，再出門", detail: "先到尖沙咀柯士甸道 8 號寄放大件行李，輕裝開始香港市區行程。", kind: "free", tags: ["寄行李", "整理"], place: "龍堡國際賓館", stop: "d4-tst" },
           { time: "11:30–12:30", duration: "約 1 小時", title: "午餐：燒鵝", detail: "先吃一頓港味午餐，再往中環與太平山移動。", kind: "food", tags: ["午餐", "港味"], place: "尖沙咀／中環｜店家待定", stop: "d4-tst" },
           { time: "12:30–17:00", duration: "約 4.5 小時", title: "中環散步、太平山、搭纜車看全景", detail: "白天走中環街區，再搭纜車上太平山，把香港全景留給下午。", kind: "free", tags: ["中環", "纜車", "全景"], place: "中環 → 太平山", stop: "d4-peak" },
           { time: "17:30–18:15", duration: "約 45 分鐘", title: "中環碼頭 → 天星小輪 → 尖沙咀", detail: "從香港島切換到九龍側，沿途看一段黃昏維港。", kind: "transport", tags: ["渡輪", "維港"], place: "中環碼頭 → 尖沙咀", stop: "d4-ferry" },
@@ -435,24 +435,22 @@
       {
         id: "day5",
         label: "Day 5",
-        tabTitle: "港式早餐・旺角街頭・雲吞麵",
+        tabTitle: "港式早餐・旺角街頭",
         title: "用港式早餐和旺角街頭，替旅程收尾",
         subtitle: "尖沙咀寄行李｜金魚街、波鞋街｜18:50 飛回台灣",
         color: "#4e7f9d",
         route: [
-          { id: "d5-hotel", name: "尖沙咀飯店／行李寄放", short: "飯店", coords: [22.2974, 114.1720] },
-          { id: "d5-breakfast", name: "港式早餐｜店家待定", short: "早餐", coords: [22.2974, 114.1720] },
+          { id: "d5-hotel", name: "龍堡國際賓館／行李寄放", short: "飯店", coords: [22.302679, 114.169446], amapPoiId: "B073C03UDM" },
+          { id: "d5-breakfast", name: "港式早餐｜店家待定", short: "早餐", coords: [22.302679, 114.169446] },
           { id: "d5-mongkok", name: "旺角｜金魚街、波鞋街", short: "旺角", coords: [22.3184, 114.1694] },
-          { id: "d5-lunch", name: "雲吞麵｜店家待定", short: "雲吞麵", coords: [22.3174, 114.1695] },
           { id: "d5-kowloon", name: "九龍站", short: "九龍站", coords: [22.3049, 114.1613] },
           { id: "d5-airport", name: "香港國際機場", short: "機場", coords: [22.3080, 113.9185] }
         ],
         items: [
-          { time: "08:45–09:15", duration: "約 30 分鐘", title: "退房，行李先寄飯店", detail: "退房後先把行李寄放在飯店，接下來輕裝走旺角。", kind: "free", tags: ["退房", "寄行李"], place: "尖沙咀飯店", stop: "d5-hotel" },
+          { time: "08:45–09:15", duration: "約 30 分鐘", title: "退房，行李先寄飯店", detail: "從龍堡國際賓館退房後先寄放行李，接下來輕裝走旺角。", kind: "free", tags: ["退房", "寄行李"], place: "龍堡國際賓館", stop: "d5-hotel" },
           { time: "09:15–10:00", duration: "約 45 分鐘", title: "港式早餐", detail: "用一頓港式早餐開啟最後一天；店家可依飯店附近現場決定。", kind: "food", tags: ["早餐", "港味"], place: "尖沙咀｜店家待定", stop: "d5-breakfast" },
           { time: "10:15–12:15", duration: "約 2 小時", title: "旺角：金魚街、波鞋街、街頭逛逛", detail: "逛金魚街與波鞋街，沿著旺角街頭慢慢走，留時間買最後的伴手禮。", kind: "free", tags: ["旺角", "逛街", "採買"], place: "旺角", stop: "d5-mongkok" },
-          { time: "12:45–13:30", duration: "約 45 分鐘", title: "午餐：雲吞麵", detail: "用一碗雲吞麵收尾香港的街頭味道；店家待出發前確認。", kind: "food", tags: ["午餐", "雲吞麵"], place: "旺角｜店家待定", stop: "d5-lunch" },
-          { time: "13:30–14:30", duration: "約 1 小時", title: "回飯店取行李，前往九龍站", detail: "午餐後回尖沙咀拿行李，再前往九龍站搭機場快線。", kind: "transport", tags: ["取行李", "交通"], place: "旺角 → 尖沙咀 → 九龍站", stop: "d5-kowloon" },
+          { time: "13:30–14:30", duration: "約 1 小時", title: "回飯店取行李，前往九龍站", detail: "逛完旺角後回尖沙咀拿行李，再前往九龍站搭機場快線。", kind: "transport", tags: ["取行李", "交通"], place: "旺角 → 尖沙咀 → 九龍站", stop: "d5-kowloon" },
           { time: "14:30–15:30", duration: "約 1 小時", title: "飯店 → 九龍站 → 香港機場", detail: "提早抵達機場，預留報到、安檢與航廈步行時間。", kind: "transport", tags: ["機場", "緩衝"], place: "九龍站 → 香港機場", stop: "d5-airport" },
           { time: "15:30–18:50", duration: "約 3 小時 20 分", title: "機場報到、安檢、候機", detail: "抵達機場後完成報到與安檢，留一段舒服的候機時間。", kind: "free", tags: ["候機", "免稅店"], place: "香港國際機場", stop: "d5-airport" },
           { time: "18:50", duration: "回台灣", title: "飛回台灣", detail: "帶著五天的城市風景和吃過的味道回家。", kind: "transport", tags: ["航班", "回程"], place: "香港 → 台灣", stop: "d5-airport" }
