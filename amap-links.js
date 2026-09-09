@@ -5,18 +5,23 @@
   root.AmapLinks = api;
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
   function buildAmapMarkerUrl(point) {
-    if (!point || !Array.isArray(point.coords) || point.coords.length !== 2) return "";
+    if (!point) return "";
 
-    const [latitude, longitude] = point.coords;
+    const params = new URLSearchParams({ src: "duck-bro-trip", callnative: "1" });
+    if (point.amapPoiId) {
+      params.set("poiid", point.amapPoiId);
+      return `https://uri.amap.com/marker?${params.toString()}`;
+    }
+
+    const coordinates = Array.isArray(point.amapCoords) ? point.amapCoords : point.coords;
+    if (!Array.isArray(coordinates) || coordinates.length !== 2) return "";
+
+    const [latitude, longitude] = coordinates;
     if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return "";
 
-    const params = new URLSearchParams({
-      position: `${longitude},${latitude}`,
-      name: point.name || "行程景點",
-      src: "duck-bro-trip",
-      coordinate: "wgs84",
-      callnative: "1"
-    });
+    params.set("position", `${longitude},${latitude}`);
+    params.set("name", point.name || "行程景點");
+    params.set("coordinate", Array.isArray(point.amapCoords) ? "gaode" : "wgs84");
 
     return `https://uri.amap.com/marker?${params.toString()}`;
   }

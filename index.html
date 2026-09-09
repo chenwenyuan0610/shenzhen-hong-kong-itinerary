@@ -313,7 +313,7 @@
         <div id="map" role="application" aria-label="深圳香港行程路線地圖"></div>
         <div class="map-note">
           <span class="note-icon">i</span>
-          <span>地圖線條用來表示移動順序，不是即時導航。飯店、火鍋店與水療店尚未有確切地址，先以區域或附近地標示意。</span>
+          <span>地圖線條用來表示移動順序，不是即時導航。深圳飯店與火鍋店已更新為精確位置；水療店與香港飯店仍以區域或附近地標示意。</span>
         </div>
       </aside>
     </main>
@@ -353,14 +353,14 @@
         subtitle: "入住南山｜晚餐後看體力逛古城或商場",
         color: "#e56b52",
         route: [
-          { id: "d1-hotel", name: "飯店（南山）", short: "飯店", coords: [22.5333, 113.9300] },
-          { id: "d1-dinner", name: "鮮牛肉火鍋｜店家待定", short: "火鍋", coords: [22.5333, 113.9300] },
+          { id: "d1-hotel", name: "深圳南山新豪方桔子水晶酒店", short: "飯店", coords: [22.544019, 113.921193], amapCoords: [22.540978262626528, 113.92605543136597] },
+          { id: "d1-dinner", name: "潮沫牛肉火鍋店（南頭老店）", short: "火鍋", coords: [22.547923, 113.918924], amapPoiId: "B02F37TQHV" },
           { id: "d1-night", name: "南頭古城／附近商場｜二選一", short: "晚間散步", coords: [22.5418, 113.9289] }
         ],
         items: [
-          { time: "16:00–17:00", duration: "約 1 小時", title: "抵達飯店", detail: "辦理入住、放行李，把房間整理好。", kind: "free", tags: ["抵達", "入住"], place: "飯店（南山）", stop: "d1-hotel" },
+          { time: "16:00–17:00", duration: "約 1 小時", title: "抵達飯店", detail: "辦理入住、放行李，把房間整理好。地址：深圳市南山區深南大道 10188 號新豪方大廈。", kind: "free", tags: ["抵達", "入住"], place: "深圳南山新豪方桔子水晶酒店", stop: "d1-hotel" },
           { time: "17:00–18:00", duration: "約 1 小時", title: "休息一下", detail: "先補水、充電、洗澡，讓晚上還有體力。", kind: "free", tags: ["留白", "充電"], place: "飯店", stop: "d1-hotel" },
-          { time: "18:00 起", duration: "晚餐時段", title: "第一天晚餐：鮮牛肉火鍋", detail: "第一餐先吃熱呼呼的鮮牛肉火鍋；店家可依飯店附近再決定。", kind: "food", tags: ["晚餐", "潮汕味"], place: "店家待定", stop: "d1-dinner" },
+          { time: "18:00 起", duration: "晚餐時段", title: "第一天晚餐：潮沫牛肉火鍋", detail: "前往潮沫牛肉火鍋店（南頭老店）；高德分享路線顯示距飯店步行約 670 公尺。", kind: "food", tags: ["晚餐", "潮汕味"], place: "潮沫牛肉火鍋店（南頭老店）", stop: "d1-dinner" },
           { time: "飯後", duration: "看體力安排", title: "古城、小吃糖水或商場逛街", detail: "吃飽後三選一：到旁邊逛古城、找小吃糖水，或改去商場慢慢走。", kind: "free", tags: ["散步", "甜點", "備選"], place: "南頭古城／商場", stop: "d1-night" }
         ]
       },
@@ -372,7 +372,7 @@
         subtitle: "電子街探店｜崗廈北短停｜把晚上留給放鬆",
         color: "#247e7b",
         route: [
-          { id: "d2-hotel", name: "飯店（南山）", short: "飯店", coords: [22.5333, 113.9300] },
+          { id: "d2-hotel", name: "深圳南山新豪方桔子水晶酒店", short: "飯店", coords: [22.544019, 113.921193], amapCoords: [22.540978262626528, 113.92605543136597] },
           { id: "d2-hq", name: "華強北", short: "華強北", coords: [22.5457, 114.0871] },
           { id: "d2-gangxia", name: "崗廈北｜深圳之眼", short: "深圳之眼", coords: [22.5327, 114.0598] },
           { id: "d2-spa", name: "水療｜店家待定，先以福田示意", short: "水療", coords: [22.5400, 114.0700] }
@@ -414,7 +414,7 @@
         subtitle: "南山 → 尖沙咀寄行李 → 中環／太平山 → 維港夜景",
         color: "#a7789d",
         route: [
-          { id: "d4-shenzhen", name: "南山飯店", short: "南山", coords: [22.5333, 113.9300] },
+          { id: "d4-shenzhen", name: "深圳南山新豪方桔子水晶酒店", short: "南山", coords: [22.544019, 113.921193], amapCoords: [22.540978262626528, 113.92605543136597] },
           { id: "d4-tst", name: "香港尖沙咀飯店｜寄行李", short: "尖沙咀", coords: [22.2974, 114.1720] },
           { id: "d4-central", name: "中環散步", short: "中環", coords: [22.2819, 114.1580] },
           { id: "d4-tram", name: "太平山纜車下站", short: "纜車", coords: [22.2773, 114.1612] },
