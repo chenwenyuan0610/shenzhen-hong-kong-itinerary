@@ -354,13 +354,13 @@
         color: "#e56b52",
         route: [
           { id: "d1-hotel", name: "深圳南山新豪方桔子水晶酒店", short: "飯店", coords: [22.544019, 113.921193], amapCoords: [22.540978262626528, 113.92605543136597] },
-          { id: "d1-dinner", name: "潮沫牛肉火鍋店（南頭老店）", short: "火鍋", coords: [22.547923, 113.918924], amapPoiId: "B02F37TQHV" },
+          { id: "d1-dinner", name: "潮沅牛肉火鍋（南頭老店）", short: "火鍋", coords: [22.547923, 113.918924], amapPoiId: "B02F37TQHV" },
           { id: "d1-night", name: "南頭古城", short: "晚間散步", coords: [22.546064, 113.916568], amapPoiId: "B02F37U89L" }
         ],
         items: [
           { time: "16:00–17:00", duration: "約 1 小時", title: "抵達飯店", detail: "辦理入住、放行李，把房間整理好。地址：深圳市南山區深南大道 10188 號新豪方大廈。", kind: "free", tags: ["抵達", "入住"], place: "深圳南山新豪方桔子水晶酒店", stop: "d1-hotel" },
           { time: "17:00–18:00", duration: "約 1 小時", title: "休息一下", detail: "先補水、充電、洗澡，讓晚上還有體力。", kind: "free", tags: ["留白", "充電"], place: "飯店", stop: "d1-hotel" },
-          { time: "18:00 起", duration: "晚餐時段", title: "第一天晚餐：潮沫牛肉火鍋", detail: "前往潮沫牛肉火鍋店（南頭老店）；高德分享路線顯示距飯店步行約 670 公尺。", kind: "food", tags: ["晚餐", "潮汕味"], place: "潮沫牛肉火鍋店（南頭老店）", stop: "d1-dinner" },
+          { time: "18:00 起", duration: "晚餐時段", title: "第一天晚餐：潮沅牛肉火鍋", detail: "前往潮沅牛肉火鍋（南頭老店）；高德分享路線顯示距飯店步行約 670 公尺。", kind: "food", tags: ["晚餐", "潮汕味"], place: "潮沅牛肉火鍋（南頭老店）", stop: "d1-dinner" },
           { time: "飯後", duration: "看體力安排", title: "南頭古城散步、吃小吃糖水", detail: "吃飽後前往南頭古城散步；地址：南頭街道南頭城社區深南大道 12024 號（南頭古城地鐵站 C 口）。", kind: "free", tags: ["散步", "甜點", "古城"], place: "南頭古城", stop: "d1-night" }
         ]
       },
@@ -392,13 +392,14 @@
         subtitle: "海上世界 → 深圳萬象天地 → 人才公園 → 樂翻夜市",
         color: "#d19a56",
         route: [
+          { id: "d3-lunch", name: "徐記海鮮（KKMALL・京基一百店）", short: "徐記海鮮", coords: [22.546541, 114.101761], amapPoiId: "B0L3U9HP0G" },
           { id: "d3-seaworld", name: "海上世界／明華輪", short: "海上世界", coords: [22.4845, 113.9174] },
           { id: "d3-mixc", name: "深圳萬象天地｜巨人展", short: "深圳萬象天地", coords: [22.544854, 113.951065], amapPoiId: "B0FFF540NK" },
           { id: "d3-talent", name: "人才公園", short: "人才公園", coords: [22.5171, 113.9512] },
           { id: "d3-night", name: "樂翻夜市｜翻身地鐵站 B 出口一帶", short: "樂翻夜市", coords: [22.5668, 113.9033] }
         ],
         items: [
-          { time: "10:30–12:00", duration: "約 1.5 小時", title: "海上世界附近吃午餐", detail: "先在蛇口一帶找午餐，吃完直接開始海邊散步。", kind: "food", tags: ["午餐", "蛇口"], place: "海上世界附近", stop: "d3-seaworld" },
+          { time: "10:30–12:00", duration: "約 1.5 小時", title: "午餐：徐記海鮮（KKMALL・京基一百店）", detail: "地址：羅湖區深南東路 5016 號京基 KKMALL 三層 L325。餐後需從羅湖跨區前往蛇口，海上世界時段視交通順延。", kind: "food", tags: ["午餐", "海鮮", "羅湖"], place: "徐記海鮮（KKMALL・京基一百店）", stop: "d3-lunch" },
           { time: "12:00–13:30", duration: "約 1.5 小時", title: "海上世界：明華輪、廣場、海邊散步", detail: "看明華輪與廣場，沿著海邊走一段，讓下午從海風開始。", kind: "free", tags: ["海景", "散步", "拍照"], place: "海上世界", stop: "d3-seaworld" },
           { time: "14:00–16:00", duration: "約 2 小時", title: "深圳萬象天地：巨人展、逛街、喝飲料", detail: "安排兩小時逛展與商場，順便喝飲料、坐下休息。地址：南山區科發路 19 號。", kind: "free", tags: ["展覽", "逛街", "休息"], place: "深圳萬象天地", stop: "d3-mixc" },
           { time: "16:30–18:15", duration: "約 1 小時 45 分", title: "人才公園看天際線，等天色變暗", detail: "抓住藍調時刻前後的光線，看深圳灣天際線慢慢亮起來。", kind: "free", tags: ["夕陽", "天際線"], place: "人才公園", stop: "d3-talent" },
