@@ -375,12 +375,14 @@
         color: "#247e7b",
         route: [
           { id: "d2-hotel", name: "深圳南山新豪方桔子水晶酒店", short: "飯店", coords: [22.544019, 113.921193], amapCoords: [22.540978262626528, 113.92605543136597] },
+          { id: "d2-lunch", name: "蘩楼（华强北总店）", short: "蘩楼", coords: [22.5473935678609, 114.07848727846631], amapPoiId: "B0FFJP9KWC" },
           { id: "d2-hq", name: "華強北", short: "華強北", coords: [22.5457, 114.0871] },
           { id: "d2-gangxia", name: "崗廈北｜深圳之眼", short: "深圳之眼", coords: [22.5327, 114.0598] },
           { id: "d2-spa", name: "艾沐春天美食·水疗（会展中心店）", short: "艾沐春天", coords: [22.53418161382739, 114.06266838312148], amapPoiId: "B0JKUA7PPL" }
         ],
         items: [
-          { time: "09:30–10:30", duration: "約 1 小時", title: "飯店出發，前往華強北", detail: "從深圳南山新豪方桔子水晶酒店出發，保留市區交通與找入口的緩衝。", kind: "transport", tags: ["交通", "出發"], place: "深圳南山新豪方桔子水晶酒店 → 華強北", stop: "d2-hotel" },
+          { time: "09:30–10:30", duration: "約 1 小時", title: "飯店出發，前往華強北蘩楼", detail: "從深圳南山新豪方桔子水晶酒店出發，先到華強北吃午餐。", kind: "transport", tags: ["交通", "出發"], place: "深圳南山新豪方桔子水晶酒店 → 蘩楼", stop: "d2-hotel" },
+          { time: "10:30–12:00", duration: "約 1.5 小時", title: "午餐：蘩楼（华强北总店）", detail: "參考價約 ¥90／人。地址：福田區振華路 118 號（華強北地鐵站 C 口旁）；吃飽後直接開始逛華強北。", kind: "food", tags: ["午餐", "粵菜", "華強北"], place: "蘩楼（华强北总店）", stop: "d2-lunch" },
           { time: "12:00–16:00", duration: "約 4 小時", title: "華強北逛足半天", detail: "把主要時間留給電子街、商場與周邊小吃；中間可找地方坐下整理戰利品。", kind: "free", tags: ["逛街", "採買", "小吃"], place: "華強北", stop: "d2-hq" },
           { time: "16:00–17:00", duration: "約 1 小時", title: "崗廈北短停，看看「深圳之眼」", detail: "從華強北移動到崗廈北，安排一段短暫拍照與城市觀察。", kind: "free", tags: ["拍照", "地標"], place: "崗廈北", stop: "d2-gangxia" },
           { time: "17:30–23:00", duration: "約 5.5 小時", title: "艾沐春天美食·水疗（会展中心店）", detail: "地址：福田區金田路 3037 號金中環國際商務大廈 F1 層；預計在館內用餐、泡湯與休息到晚上。", kind: "free", tags: ["水療", "美食", "放鬆", "晚間"], place: "艾沐春天·會展中心店", stop: "d2-spa" }
