@@ -274,7 +274,7 @@
       <div class="hero-stats" aria-label="行程摘要">
         <div class="stat"><strong>5</strong><span>天行程</span></div>
         <div class="stat"><strong>2</strong><span>座城市</span></div>
-        <div class="stat"><strong>1</strong><span>次過關</span></div>
+        <div class="stat"><strong>2</strong><span>次過關</span></div>
         <div class="stat"><strong>∞</strong><span>小吃額度</span></div>
       </div>
     </header>
@@ -348,16 +348,18 @@
       {
         id: "day1",
         label: "Day 1",
-        tabTitle: "抵達深圳・鮮牛肉火鍋",
-        title: "抵達深圳，先把節奏放慢",
+        tabTitle: "香港抵達・深圳牛肉火鍋",
+        title: "抵達香港，再前往深圳",
         subtitle: "入住南山｜晚餐後看體力逛古城或商場",
         color: "#e56b52",
         route: [
+          { id: "d1-airport", name: "香港國際機場", short: "香港機場", coords: [22.3080, 113.9185] },
           { id: "d1-hotel", name: "深圳南山新豪方桔子水晶酒店", short: "飯店", coords: [22.544019, 113.921193], amapCoords: [22.540978262626528, 113.92605543136597] },
           { id: "d1-dinner", name: "潮沅牛肉火鍋（南頭老店）", short: "火鍋", coords: [22.547923, 113.918924], amapPoiId: "B02F37TQHV" },
           { id: "d1-night", name: "南頭古城", short: "晚間散步", coords: [22.546064, 113.916568], amapPoiId: "B02F37U89L" }
         ],
         items: [
+          { time: "14:30", duration: "抵達香港", title: "抵達香港國際機場", detail: "辦理入境、領取行李後，跨境前往深圳南山；16:00 抵達飯店的時間較緊，需視通關與交通狀況調整。", kind: "transport", tags: ["抵達", "入境", "跨境"], place: "香港國際機場 → 深圳南山", stop: "d1-airport" },
           { time: "16:00–17:00", duration: "約 1 小時", title: "抵達飯店", detail: "辦理入住、放行李，把房間整理好。地址：深圳市南山區深南大道 10188 號新豪方大廈。", kind: "free", tags: ["抵達", "入住"], place: "深圳南山新豪方桔子水晶酒店", stop: "d1-hotel" },
           { time: "17:00–18:00", duration: "約 1 小時", title: "休息一下", detail: "先補水、充電、洗澡，讓晚上還有體力。", kind: "free", tags: ["留白", "充電"], place: "飯店", stop: "d1-hotel" },
           { time: "18:00 起", duration: "晚餐時段", title: "第一天晚餐：潮沅牛肉火鍋", detail: "前往潮沅牛肉火鍋（南頭老店）；高德分享路線顯示距飯店步行約 670 公尺。", kind: "food", tags: ["晚餐", "潮汕味"], place: "潮沅牛肉火鍋（南頭老店）", stop: "d1-dinner" },
