@@ -326,15 +326,15 @@
           <li>Day 2 華強北逛足半天，建議穿好走的鞋。</li>
           <li>崗廈北只安排短停，預留拍照與步行時間。</li>
           <li>Day 3 人才公園抓夕陽，天色變暗後再前往夜市。</li>
-          <li>Day 4 早上跨境，行李先寄放再開始香港行程。</li>
+          <li>Day 4 提早跨境，先到龍堡國際賓館寄行李，再輕裝往返東涌與昂坪。</li>
           <li>過關、叫車、晚間交通都保留了緩衝，不用卡太緊。</li>
-          <li>巨人展展期與餐廳預約，出發前再確認一次。</li>
+          <li>巨人展展期、餐廳預約與昂坪纜車服務狀態，出發前再確認一次。</li>
         </ul>
       </article>
       <article class="panel route-card">
         <p class="section-label">Route overview</p>
         <h2>五天，兩座城市</h2>
-        <p>前三天走深圳南山、福田與寶安；第四天沿香港島走到維港，第五天從旺角慢慢收尾，再前往機場。</p>
+        <p>前三天走深圳南山、福田與寶安；第四天從大嶼山昂坪一路走到維港，第五天從旺角慢慢收尾，再前往機場。</p>
         <div class="route-line" id="route-line"></div>
       </article>
     </section>
@@ -416,27 +416,33 @@
       {
         id: "day4",
         label: "Day 4",
-        tabTitle: "中環・太平山・維港夜景",
-        title: "深圳出發，沿香港島的坡度走到維港",
-        subtitle: "南山 → 尖沙咀寄行李 → 中環／太平山 → 維港夜景",
+        tabTitle: "昂坪 360・維港夜景",
+        title: "先走大嶼山，再到尖沙咀看維港",
+        subtitle: "南山 → 尖沙咀寄行李 → 東涌／昂坪 360 → 維港夜景",
         color: "#a7789d",
         route: [
           { id: "d4-shenzhen", name: "深圳南山新豪方桔子水晶酒店", short: "南山", coords: [22.544019, 113.921193], amapCoords: [22.540978262626528, 113.92605543136597] },
-          { id: "d4-tst", name: "龍堡國際賓館｜寄行李", short: "尖沙咀", coords: [22.302679, 114.169446], amapPoiId: "B073C03UDM" },
-          { id: "d4-central", name: "中環散步", short: "中環", coords: [22.2819, 114.1580] },
-          { id: "d4-tram", name: "太平山纜車下站", short: "纜車", coords: [22.2773, 114.1612] },
-          { id: "d4-peak", name: "太平山山頂", short: "山頂", coords: [22.2753, 114.1458] },
-          { id: "d4-ferry", name: "中環碼頭／天星小輪", short: "天星小輪", coords: [22.2866, 114.1603] },
+          { id: "d4-tst", name: "龍堡國際賓館｜寄行李／入住", short: "尖沙咀", coords: [22.302679, 114.169446], amapPoiId: "B073C03UDM" },
+          { id: "d4-tungchung", name: "昂坪 360 東涌纜車站", short: "東涌", coords: [22.2901698, 113.9386433] },
+          { id: "d4-ngongping", name: "昂坪 360／昂坪市集", short: "昂坪 360", coords: [22.2563266, 113.9014266] },
+          { id: "d4-buddha", name: "天壇大佛｜268 階", short: "天壇大佛", coords: [22.2539595, 113.9050120] },
+          { id: "d4-polin", name: "寶蓮禪寺", short: "寶蓮禪寺", coords: [22.2552584, 113.9075569] },
           { id: "d4-night", name: "尖沙咀海旁、星光大道", short: "維港夜景", coords: [22.2944, 114.1717] }
         ],
         items: [
-          { time: "07:30–10:30", duration: "約 3 小時", title: "從飯店出發，前往香港尖沙咀", detail: "從深圳南山新豪方桔子水晶酒店出發，將過關、交通與可能排隊時間一起算進來。", kind: "transport", tags: ["跨境", "交通"], place: "深圳南山新豪方桔子水晶酒店 → 尖沙咀", stop: "d4-shenzhen" },
-          { time: "10:30–11:00", duration: "約 30 分鐘", title: "龍堡國際賓館寄行李，再出門", detail: "先到尖沙咀柯士甸道 8 號寄放大件行李，輕裝開始香港市區行程。", kind: "free", tags: ["寄行李", "整理"], place: "龍堡國際賓館", stop: "d4-tst" },
-          { time: "11:30–12:30", duration: "約 1 小時", title: "午餐：燒鵝", detail: "先吃一頓港味午餐，再往中環與太平山移動。", kind: "food", tags: ["午餐", "港味"], place: "尖沙咀／中環｜店家待定", stop: "d4-tst" },
-          { time: "12:30–17:00", duration: "約 4.5 小時", title: "中環散步、太平山、搭纜車看全景", detail: "白天走中環街區，再搭纜車上太平山，把香港全景留給下午。", kind: "free", tags: ["中環", "纜車", "全景"], place: "中環 → 太平山", stop: "d4-peak" },
-          { time: "17:30–18:15", duration: "約 45 分鐘", title: "中環碼頭 → 天星小輪 → 尖沙咀", detail: "從香港島切換到九龍側，沿途看一段黃昏維港。", kind: "transport", tags: ["渡輪", "維港"], place: "中環碼頭 → 尖沙咀", stop: "d4-ferry" },
-          { time: "18:30–19:30", duration: "約 1 小時", title: "晚餐：現場決定", detail: "回到尖沙咀後看當下想吃什麼，不預先把晚餐綁死。", kind: "food", tags: ["晚餐", "彈性"], place: "尖沙咀｜店家待定", stop: "d4-tst" },
-          { time: "19:30–20:30", duration: "約 1 小時", title: "尖沙咀海旁、星光大道、維港夜景酒吧", detail: "用海旁夜景收尾；想喝酒就找一間順路的酒吧坐下。", kind: "free", tags: ["夜景", "酒吧", "收尾"], place: "尖沙咀海旁", stop: "d4-night" }
+          { time: "06:30–09:30", duration: "約 3 小時", title: "從飯店出發，跨境前往香港飯店", detail: "從深圳南山新豪方桔子水晶酒店出發，經深圳灣口岸前往尖沙咀；為配合 11:30 抵達昂坪山上，務必提早出發。", kind: "transport", tags: ["跨境", "交通", "早出發"], place: "深圳南山飯店 → 龍堡國際賓館", stop: "d4-shenzhen" },
+          { time: "09:30–09:50", duration: "約 20 分鐘", title: "龍堡國際賓館寄放行李", detail: "先到尖沙咀柯士甸道 8 號寄放大件行李，接下來輕裝前往昂坪。", kind: "free", tags: ["寄行李", "整理"], place: "龍堡國際賓館", stop: "d4-tst" },
+          { time: "09:50–10:40", duration: "約 50 分鐘", title: "尖沙咀前往東涌纜車站", detail: "從柯士甸／九龍站轉乘港鐵前往東涌，下車後步行至昂坪 360 東涌纜車站。", kind: "transport", tags: ["港鐵", "轉乘"], place: "尖沙咀 → 東涌", stop: "d4-tungchung" },
+          { time: "10:40–11:30", duration: "約 50 分鐘", title: "排隊，搭昂坪 360 上山", detail: "纜車車程約 25 分鐘；標準車廂成人來回票參考價 HK$295，建議提前購票並查看當日服務狀態。", kind: "transport", tags: ["纜車", "排隊", "大嶼山"], place: "東涌 → 昂坪", stop: "d4-ngongping" },
+          { time: "11:30–11:50", duration: "約 20 分鐘", title: "昂坪市集走走、拍照", detail: "抵達山上後先逛一小段市集、熟悉環境，順便拍照。", kind: "free", tags: ["市集", "散步", "拍照"], place: "昂坪市集", stop: "d4-ngongping" },
+          { time: "11:50–12:50", duration: "約 1 小時", title: "天壇大佛：上下 268 階＋拍照", detail: "預留完整一小時走完階梯、參觀大佛與拍照；依體力調整速度。", kind: "free", tags: ["天壇大佛", "268 階", "拍照"], place: "天壇大佛", stop: "d4-buddha" },
+          { time: "12:50–13:30", duration: "約 40 分鐘", title: "參觀寶蓮禪寺", detail: "從天壇大佛前往寶蓮禪寺，放慢腳步參觀寺院。", kind: "free", tags: ["寺院", "文化", "散步"], place: "寶蓮禪寺", stop: "d4-polin" },
+          { time: "13:30–14:00", duration: "約 30 分鐘", title: "市集吃點東西、休息", detail: "回到昂坪市集簡單吃午餐或小吃，補充體力後準備下山。", kind: "food", tags: ["午餐", "小吃", "休息"], place: "昂坪市集", stop: "d4-ngongping" },
+          { time: "14:00–14:40", duration: "約 40 分鐘", title: "準備搭纜車下山", detail: "約 14:00 前往纜車站排隊，搭纜車返回東涌。", kind: "transport", tags: ["纜車", "回程"], place: "昂坪 → 東涌", stop: "d4-tungchung" },
+          { time: "14:40–15:40", duration: "約 1 小時", title: "東涌返回香港飯店", detail: "從東涌搭港鐵返回龍堡國際賓館。", kind: "transport", tags: ["港鐵", "回飯店"], place: "東涌 → 龍堡國際賓館", stop: "d4-tst" },
+          { time: "15:40–17:30", duration: "約 1 小時 50 分", title: "飯店入住、休息", detail: "辦理入住、取回行李並稍作休息，替晚上的維港行程補充體力。", kind: "free", tags: ["入住", "休息", "充電"], place: "龍堡國際賓館", stop: "d4-tst" },
+          { time: "18:00–19:30", duration: "約 1.5 小時", title: "晚餐：燒鵝或現場決定", detail: "將原本的燒鵝改到晚餐；若排隊太久，就在尖沙咀選一間順路的餐廳。", kind: "food", tags: ["晚餐", "燒鵝", "港味"], place: "尖沙咀｜店家待定", stop: "d4-tst" },
+          { time: "19:30–21:30", duration: "約 2 小時", title: "尖沙咀海旁、星光大道、維港夜景酒吧", detail: "沿海旁散步看維港夜景，最後找一間順路的酒吧坐下收尾。", kind: "free", tags: ["夜景", "酒吧", "收尾"], place: "尖沙咀海旁", stop: "d4-night" }
         ]
       },
       {
